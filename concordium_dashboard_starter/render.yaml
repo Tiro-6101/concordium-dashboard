@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: concordium-dashboard
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn webapp.app:app"
+    envVars:
+      - key: CCD_DATA_DIR
+        value: /opt/render/project/src/data
+      - key: CCD_CHARTS_DIR
+        value: /opt/render/project/src/webapp/static/daily_charts

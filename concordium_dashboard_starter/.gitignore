@@ -1,0 +1,14 @@
+# Ignore data and reports
+data/*.csv
+data/reports/*
+!data/reports/.gitkeep
+
+# Ignore virtual environment
+.venv/
+
+# Ignore OS files
+__pycache__/
+*.pyc
+
+# Ignore local credentials
+.env

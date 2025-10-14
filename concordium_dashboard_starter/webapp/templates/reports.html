@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reports</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="container">
+    <h1>PDF Reports</h1>
+    <nav>
+      <a href="/">← Back to Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% if pdfs and pdfs|length > 0 %}
+      <ul class="file-list">
+        {% for pdf in pdfs %}
+          <li><a href="/reports/{{ pdf }}">{{ pdf }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">No PDF reports found in <code>data/reports/</code> yet.</p>
+    {% endif %}
+  </main>
+</body>
+</html>

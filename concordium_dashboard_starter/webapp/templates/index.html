@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Concordium Market Overview</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="container header">
+    <div>
+      <h1>Concordium Market Overview</h1>
+      <p class="muted">
+        {% if cards.date %}Updated: {{ cards.date }} UTC{% else %}Latest daily summary loaded{% endif %}
+      </p>
+    </div>
+    <nav>
+      <a href="/">Overview</a>
+      <a href="/reports">Reports</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Metric cards -->
+    <section class="cards-grid">
+      <div class="card">
+        <h3>Price (Close)</h3>
+        <p class="big">
+          {% if cards.price_close_usd is not none %}${{ '%.6f'|format(cards.price_close_usd) }}{% else %}—{% endif %}
+        </p>
+        <p class="muted">
+          {% if cards.price_avg_usd is not none %}Average: ${{ '%.6f'|format(cards.price_avg_usd) }}{% endif %}
+          {% if cards.price_std_usd is not none %} · Std: {{ '%.6f'|format(cards.price_std_usd) }}{% endif %}
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Price Change (24h)</h3>
+        {% set ch = cards.price_change_pct %}
+        <p class="big {% if ch is not none and ch >= 0 %}pos{% elif ch is not none %}neg{% endif %}">
+          {% if ch is not none %}{{ '%.2f'|format(ch) }}%{% else %}—{% endif %}
+        </p>
+        {% if cards.volatility_index is not none %}
+          <p class="muted">Volatility Index: {{ '%.2f'|format(cards.volatility_index) }}%</p>
+        {% endif %}
+      </div>
+
+      <div class="card">
+        <h3>Buyer %</h3>
+        <p class="big">{% if cards.avg_buyers_pct is not none %}{{ '%.0f'|format(cards.avg_buyers_pct) }}%{% else %}—{% endif %}</p>
+      </div>
+
+      <div class="card">
+        <h3>Seller %</h3>
+        <p class="big">{% if cards.avg_sellers_pct is not none %}{{ '%.0f'|format(cards.avg_sellers_pct) }}%{% else %}—{% endif %}</p>
+      </div>
+
+      <div class="card">
+        <h3>Dominant Sentiment</h3>
+        {% set sent = (cards.dominant_sentiment or '')|lower %}
+        <p class="big {% if 'bull' in sent %}pos{% elif 'bear' in sent %}neg{% endif %}">
+          {{ cards.dominant_sentiment or '—' }}
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Total Volume (Notional)</h3>
+        <p class="big">
+          {% if cards.total_volume_notional is not none %}{{ "{:,.0f}".format(cards.total_volume_notional) }}{% else %}—{% endif %}
+        </p>
+      </div>
+    </section>
+
+    <!-- Events feed -->
+    <section>
+      <h2>Recent Events</h2>
+      {% if events and events|length > 0 %}
+        <ul class="event-feed">
+          {% for e in events %}
+            {% set sev = (e['severity'] or '')|lower %}
+            <li class="sev-{{ sev }}">
+              <span class="time">
+                {% if e['timestamp_utc'] %}{{ e['timestamp_utc'] }}{% else %}—{% endif %}
+              </span>
+              <span class="etype">{{ e['event_type']|replace('_',' ') }}</span>
+              <span class="note">{{ e['note'] }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted">No recent events found.</p>
+      {% endif %}
+    </section>
+
+    <!-- Charts -->
+    <section class="charts">
+      {% if charts.price_over_time %}
+        <figure class="figure">
+          <img src="/charts/{{ charts.price_over_time }}" alt="CCD Price Over Time" />
+          <figcaption>CCD price over time with event markers.</figcaption>
+        </figure>
+      {% endif %}
+
+      {% if charts.buyer_seller_trend %}
+        <figure class="figure">
+          <img src="/charts/{{ charts.buyer_seller_trend }}" alt="Buyer vs Seller Trend" />
+          <figcaption>Intraday buyer vs seller dominance trend.</figcaption>
+        </figure>
+      {% endif %}
+
+      {% if charts.event_counts %}
+        <figure class="figure">
+          <img src="/charts/{{ charts.event_counts }}" alt="Event Counts" />
+          <figcaption>Distribution of detected event types.</figcaption>
+        </figure>
+      {% endif %}
+
+      {% if charts.price_vs_buyers %}
+        <figure class="figure">
+          <img src="/charts/{{ charts.price_vs_buyers }}" alt="Price vs Buyers%" />
+          <figcaption>Relationship between buyer share and price movements.</figcaption>
+        </figure>
+      {% endif %}
+
+      {% if charts.price_vs_buyers_trend %}
+        <figure class="figure">
+          <img src="/charts/{{ charts.price_vs_buyers_trend }}" alt="Price vs Buyers% Trendline" />
+          <figcaption>Simplified trendline showing correlation of buyer % and price.</figcaption>
+        </figure>
+      {% endif %}
+
+      <!-- Placeholder for future CCD vs BTX chart -->
+      {% if charts.ccd_vs_btx %}
+        <figure class="figure">
+          <img src="/charts/{{ charts.ccd_vs_btx }}" alt="CCD vs BTX" />
+          <figcaption>CCD vs BTX price correlation.</figcaption>
+        </figure>
+      {% else %}
+        <div class="card placeholder">
+          <h3>Coming soon</h3>
+          <p>Future chart: CCD vs BTX Price Correlation.</p>
+          <p class="muted">When you add a file like <code>ccd_vs_btx_YYYY-MM-DD.png</code> to your <code>daily_charts</code> folder, it will appear here automatically.</p>
+        </div>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>
