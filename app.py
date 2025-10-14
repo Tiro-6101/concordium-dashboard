@@ -36,7 +36,8 @@ def requires_auth(f):
     return decorated
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates", static_folder="static")
+
 
 # =============================
 # Configuration (edit if needed)
