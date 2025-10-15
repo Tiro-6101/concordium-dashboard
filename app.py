@@ -48,7 +48,8 @@ CHARTS_SRC_DIR = Path(os.getenv("CCD_CHARTS_DIR", r"C:\Users\Callum\Downloads\da
 
 # The PDFs can live inside the project (safe to move)
 BASE_DIR = Path(__file__).resolve().parent
-REPORTS_DIR = (BASE_DIR / ".." / "data" / "reports").resolve()
+REPORTS_DIR = (BASE_DIR / "data" / "reports").resolve()
+
 
 # Filenames we expect in DATA_SRC_DIR
 DAILY_SUMMARY_NAME = "ccd_daily_summary.csv"
