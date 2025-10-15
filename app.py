@@ -164,34 +164,49 @@ def external_chart(filename):
 def reports_home():
     """Redirect to the main reports overview."""
     return render_template("reports_home.html")
+
+
 @app.route("/reports/daily")
-def daily_reports():
+def reports_daily():
+    """List all daily report PDFs."""
     from pathlib import Path
     reports_dir = Path("data/reports")
-    daily_reports = sorted(
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    pdfs = sorted(
         [f.name for f in reports_dir.glob("daily_report_*.pdf")],
         reverse=True
     )
-    return render_template("reports_daily.html", pdfs=daily_reports)
+    return render_template("reports_daily.html", pdfs=pdfs)
+
 
 @app.route("/reports/weekly")
 def reports_weekly():
     """List all weekly report PDFs."""
-    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    from pathlib import Path
+    reports_dir = Path("data/reports")
+    reports_dir.mkdir(parents=True, exist_ok=True)
     pdfs = sorted(
-        [f.name for f in REPORTS_DIR.glob("weekly_report_*.pdf")],
+        [f.name for f in reports_dir.glob("weekly_report_*.pdf")],
         reverse=True
     )
     return render_template("reports_weekly.html", pdfs=pdfs)
 
+
 @app.route("/reports/<path:filename>")
 def download_report(filename):
-    target = (REPORTS_DIR / filename).resolve()
+    """Allow downloading individual PDF reports."""
+    from pathlib import Path
+    from flask import send_from_directory, abort
+
+    reports_dir = Path("data/reports").resolve()
+    target = (reports_dir / filename).resolve()
+
     if not target.exists() or not target.is_file() or target.suffix.lower() != ".pdf":
         abort(404)
-    if REPORTS_DIR not in target.parents:
+    if reports_dir not in target.parents:
         abort(403)
-    return send_from_directory(REPORTS_DIR, filename, as_attachment=True)
+
+    return send_from_directory(reports_dir, filename, as_attachment=True)
 
 if __name__ == "__main__":
     import os
