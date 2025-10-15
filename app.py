@@ -174,8 +174,6 @@ def daily_reports():
     )
     return render_template("reports_daily.html", pdfs=daily_reports)
 
-    return render_template("reports_daily.html", pdfs=pdfs)
-
 @app.route("/reports/weekly")
 def reports_weekly():
     """List all weekly report PDFs."""
