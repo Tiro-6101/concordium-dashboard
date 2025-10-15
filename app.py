@@ -161,10 +161,29 @@ def external_chart(filename):
     return send_from_directory(CHARTS_SRC_DIR, filename)
 
 @app.route("/reports")
-def reports():
+def reports_home():
+    """Redirect to the main reports overview."""
+    return render_template("reports_home.html")
+
+@app.route("/reports/daily")
+def reports_daily():
+    """List all daily report PDFs."""
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    pdfs = sorted([f.name for f in REPORTS_DIR.glob("*.pdf")], reverse=True)
-    return render_template("reports.html", pdfs=pdfs)
+    pdfs = sorted(
+        [f.name for f in REPORTS_DIR.glob("daily_report_*.pdf")],
+        reverse=True
+    )
+    return render_template("reports_daily.html", pdfs=pdfs)
+
+@app.route("/reports/weekly")
+def reports_weekly():
+    """List all weekly report PDFs."""
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    pdfs = sorted(
+        [f.name for f in REPORTS_DIR.glob("weekly_report_*.pdf")],
+        reverse=True
+    )
+    return render_template("reports_weekly.html", pdfs=pdfs)
 
 @app.route("/reports/<path:filename>")
 def download_report(filename):
