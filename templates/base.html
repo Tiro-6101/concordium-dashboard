@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Concordium Dashboard{% endblock %}</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #222;
+        }
+        header {
+            background-color: #1c2b4a;
+            color: #fff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 40px;
+            background: #fff;
+            margin: 30px auto;
+            max-width: 1000px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        footer {
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+            margin: 30px 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Concordium Market Dashboard</h1>
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/reports/daily">Daily Reports</a>
+            <a href="/reports/weekly">Weekly Reports</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        © {{ current_year }} Concordium Analytics — All Rights Reserved.
+    </footer>
+</body>
+</html>
