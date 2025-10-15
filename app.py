@@ -164,15 +164,16 @@ def external_chart(filename):
 def reports_home():
     """Redirect to the main reports overview."""
     return render_template("reports_home.html")
-
 @app.route("/reports/daily")
-def reports_daily():
-    """List all daily report PDFs."""
-    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    pdfs = sorted(
-        [f.name for f in REPORTS_DIR.glob("daily_report_*.pdf")],
+def daily_reports():
+    from pathlib import Path
+    reports_dir = Path("data/reports")
+    daily_reports = sorted(
+        [f.name for f in reports_dir.glob("daily_report_*.pdf")],
         reverse=True
     )
+    return render_template("reports_daily.html", pdfs=daily_reports)
+
     return render_template("reports_daily.html", pdfs=pdfs)
 
 @app.route("/reports/weekly")
