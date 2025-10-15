@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Weekly Reports</h2>
+{% if pdfs %}
+  <ul>
+  {% for file in pdfs %}
+    <li><a href="{{ url_for('download_report', filename=file) }}">{{ file }}</a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No weekly reports found.</p>
+{% endif %}
+{% endblock %}

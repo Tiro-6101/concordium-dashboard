@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Reports</h2>
+<ul>
+  <li><a href="{{ url_for('reports_daily') }}">Daily Reports</a></li>
+  <li><a href="{{ url_for('reports_weekly') }}">Weekly Reports</a></li>
+</ul>
+{% endblock %}
