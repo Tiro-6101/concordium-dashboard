@@ -12,3 +12,4 @@ __pycache__/
 
 # Ignore local credentials
 .env
+"!data/reports/*.pdf" 
