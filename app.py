@@ -139,14 +139,15 @@ def index():
     # Events
     events = latest_events(10)
 
-    # Charts (newest by pattern)
-    charts = {
-        "price_over_time": latest_chart_filename("price_over_time"),
-        "buyer_seller_trend": latest_chart_filename("buyer_seller_trend"),
-        "event_counts": latest_chart_filename("event_counts"),
-        "price_vs_buyers": latest_chart_filename("price_vs_buyers"),
-        "price_vs_buyers_trend": latest_chart_filename("price_vs_buyers_trend"),
-        "ccd_vs_btx": latest_chart_filename("ccd_vs_btx"),  # may be None for now
+# Charts (newest by pattern)
+charts = {
+    "price_over_time": latest_chart_filename("price_over_time"),
+    "buyer_seller_trend": latest_chart_filename("buyer_seller_trend"),
+    "event_counts": latest_chart_filename("event_counts"),
+    "price_vs_buyers": latest_chart_filename("price_vs_buyers"),
+    "price_vs_buyers_trend": latest_chart_filename("price_vs_buyers_trend"),
+    "ccd_vs_btx": latest_chart_filename("ccd_vs_btx"),  # may be None for now
+}
     }
 
     return render_template("index.html", cards=cards, events=events, charts=charts)
