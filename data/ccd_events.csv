@@ -127,3 +127,14 @@ timestamp_utc,event_type,severity,metric,value,change_value,baseline,note
 2025-10-15T13:54:20.637387+00:00,volume_anomaly,moderate,volume_total,6465.45314086512,2.732217811834817,2563.3810956196103,Volume 2.73σ from mean
 2025-10-15T14:06:40.548532+00:00,seller_surge,high,consolidated_sellers_pct_notional,72.27,35.669999999999995,36.6,Sudden seller dominance surge
 2025-10-15T14:35:26.553126+00:00,volume_anomaly,moderate,volume_total,7435.91309507117,2.8226024529560507,2589.5571125151428,Volume 2.82σ from mean
+2025-10-15T16:49:17.719168+00:00,buyer_surge,high,consolidated_buyers_pct_notional,72.96,36.879999999999995,36.08,Sudden buyer dominance surge
+2025-10-15T17:34:35.553349+00:00,volume_anomaly,moderate,volume_total,2131.90406433148,2.7794641757489353,1573.6617494165869,Volume 2.78σ from mean
+2025-10-15T18:24:04.368760+00:00,volume_anomaly,moderate,volume_total,1348.6171652036,2.7222886829501696,3152.4876751124384,Volume 2.72σ from mean
+2025-10-15T18:36:26.787949+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,84.11,22.490000000000002,61.62,Sudden seller dominance surge
+2025-10-15T18:54:59.928072+00:00,buyer_surge,high,consolidated_buyers_pct_notional,71.4,43.42,27.98,Sudden buyer dominance surge
+2025-10-15T18:54:59.928072+00:00,volume_anomaly,moderate,volume_total,6543.204735991311,2.8430175880867843,2580.216824680069,Volume 2.84σ from mean
+2025-10-15T19:36:11.443989+00:00,volume_anomaly,moderate,volume_total,15943.099531573975,2.7012137621464447,6922.165347746088,Volume 2.70σ from mean
+2025-10-15T21:42:15.582158+00:00,buyer_surge,moderate,consolidated_buyers_pct_notional,75.07,21.96999999999999,53.1,Sudden buyer dominance surge
+2025-10-15T21:42:15.582158+00:00,volume_anomaly,moderate,volume_total,2147.5969543148303,2.6934309972073973,1323.530542076748,Volume 2.69σ from mean
+2025-10-16T09:17:28.657952+00:00,buyer_surge,high,consolidated_buyers_pct_notional,84.03,36.160000000000004,47.87,Sudden buyer dominance surge
+2025-10-16T09:17:28.657952+00:00,price_surge,moderate,price_usd,0.01601024,5.340298014486855,0.01519859,Price changed 5.34%
