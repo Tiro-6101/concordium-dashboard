@@ -12,7 +12,7 @@ from flask import request, Response
 
 # Credentials are taken from environment variables so you can change them on Render
 USER = os.getenv("DASH_USER", "calmac01")      # default username
-PASS = os.getenv("DASH_PASS", "cicero61")  # default password
+PASS = os.getenv("DASH_PASS", "cicero61")      # default password
 
 def check_auth(username, password):
     """Check if a username/password pair is valid."""
@@ -38,13 +38,13 @@ def requires_auth(f):
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
-
 # =============================
 # Configuration (edit if needed)
 # =============================
-# Your CSVs remain in Downloads. Adjust if your username/path changes.
+# Your CSVs remain in Downloads locally; Render won't use this path.
 DATA_SRC_DIR = Path(os.getenv("CCD_DATA_DIR", r"C:\Users\Callum\Downloads")).resolve()
-# Chart folders (for Render and GitHub deployment)
+
+# Charts live in the repository so Render can serve them
 CHARTS_BASE_DIR = Path("data/charts").resolve()
 CHARTS_DAILY_DIR = CHARTS_BASE_DIR / "daily"
 CHARTS_WEEKLY_DIR = CHARTS_BASE_DIR / "weekly"
@@ -54,26 +54,13 @@ CHARTS_COMPARISON_DIR = CHARTS_BASE_DIR / "weekly_comparison"
 for path in [CHARTS_DAILY_DIR, CHARTS_WEEKLY_DIR, CHARTS_COMPARISON_DIR]:
     path.mkdir(parents=True, exist_ok=True)
 
-
-# The PDFs can live inside the project (safe to move)
+# PDFs
 BASE_DIR = Path(__file__).resolve().parent
 REPORTS_DIR = (BASE_DIR / "data" / "reports").resolve()
 
-
-# Filenames we expect in DATA_SRC_DIR
+# Filenames we expect in DATA_SRC_DIR (local only)
 DAILY_SUMMARY_NAME = "ccd_daily_summary.csv"
 EVENTS_NAME = "ccd_events.csv"
-
-# Chart filename patterns inside CHARTS_SRC_DIR (newest wins)
-CHART_PATTERNS = {
-    "price_over_time": "price_over_time_*.png",
-    "buyer_seller_trend": "buyer_seller_trend_*.png",
-    "event_counts": "event_counts_*.png",
-    "price_vs_buyers": "price_vs_buyers_*.png",
-    "price_vs_buyers_trend": "price_vs_buyers_trend_*.png",
-    # Placeholder for future chart you'll add later:
-    "ccd_vs_btx": "ccd_vs_btx_*.png",
-}
 
 # ---------- Helpers ----------
 def read_csv_optional(path: Path):
@@ -100,7 +87,7 @@ def latest_events(n=10):
     df = read_csv_optional(events_path)
     if df is None or df.empty:
         return []
-    # Normalize and sort by timestamp
+    # Normalize and sort by timestamp if present
     if "timestamp_utc" in df.columns:
         df = df.copy()
         df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"], errors="coerce")
@@ -109,12 +96,11 @@ def latest_events(n=10):
         df = df.iloc[::-1]  # reverse if no timestamp column
     return df.head(n).to_dict(orient="records")
 
-
 # ---------- Routes ----------
 @app.route("/")
 @requires_auth
 def index():
-    # Load daily summary
+    # Load daily summary (works locally; on Render it may be empty if the CSV isn't present)
     daily_path = DATA_SRC_DIR / DAILY_SUMMARY_NAME
     daily_df = read_csv_optional(daily_path)
     daily_latest = latest_row_by_date(daily_df, "date") if (daily_df is not None and not daily_df.empty) else None
@@ -136,33 +122,21 @@ def index():
         "date": get(daily_latest, "date"),
     }
 
-    # Events
     events = latest_events(10)
 
-# Charts (newest by pattern)
-charts = {
-    "price_over_time": latest_chart_filename("price_over_time"),
-    "buyer_seller_trend": latest_chart_filename("buyer_seller_trend"),
-    "event_counts": latest_chart_filename("event_counts"),
-    "price_vs_buyers": latest_chart_filename("price_vs_buyers"),
-    "price_vs_buyers_trend": latest_chart_filename("price_vs_buyers_trend"),
-    "ccd_vs_btx": latest_chart_filename("ccd_vs_btx"),  # may be None for now
-}
-    }
+    # Keep this for backward-compatible templates; it's empty now
+    charts = {}
 
     return render_template("index.html", cards=cards, events=events, charts=charts)
-
 
 @app.route("/reports")
 def reports_home():
     """Redirect to the main reports overview."""
     return render_template("reports_home.html")
 
-
 @app.route("/reports/daily")
 def reports_daily():
     """List all daily report PDFs."""
-    from pathlib import Path
     reports_dir = Path("data/reports")
     reports_dir.mkdir(parents=True, exist_ok=True)
     pdfs = sorted(
@@ -171,11 +145,9 @@ def reports_daily():
     )
     return render_template("reports_daily.html", pdfs=pdfs)
 
-
 @app.route("/reports/weekly")
 def reports_weekly():
     """List all weekly report PDFs."""
-    from pathlib import Path
     reports_dir = Path("data/reports")
     reports_dir.mkdir(parents=True, exist_ok=True)
     pdfs = sorted(
@@ -184,13 +156,9 @@ def reports_weekly():
     )
     return render_template("reports_weekly.html", pdfs=pdfs)
 
-
 @app.route("/reports/<path:filename>")
 def download_report(filename):
     """Allow downloading individual PDF reports."""
-    from pathlib import Path
-    from flask import send_from_directory, abort
-
     reports_dir = Path("data/reports").resolve()
     target = (reports_dir / filename).resolve()
 
@@ -200,6 +168,7 @@ def download_report(filename):
         abort(403)
 
     return send_from_directory(reports_dir, filename, as_attachment=True)
+
 @app.route("/charts")
 def charts_page():
     """Display daily, weekly, and comparison charts on the dashboard."""
@@ -223,6 +192,5 @@ def charts_page():
     )
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
