@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Charts & Insights{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Charts & Insights</h1>
+
+    <!-- Daily Charts Section -->
+    <section class="mb-5">
+        <h2 class="mb-3 border-bottom pb-2">Daily Charts</h2>
+        {% if daily_charts %}
+            <div class="chart-grid">
+                {% for chart in daily_charts %}
+                    <div class="chart-card">
+                        <h5>{{ chart.replace('_', ' ').rsplit('.', 1)[0] | title }}</h5>
+                        <img src="{{ url_for('external_chart', filename='daily/' ~ chart) }}"
+                             alt="Daily chart showing {{ chart.replace('_', ' ') | lower }}"
+                             class="chart-img">
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">No daily charts available yet.</p>
+        {% endif %}
+    </section>
+
+    <!-- Weekly Charts Section -->
+    <section class="mb-5">
+        <h2 class="mb-3 border-bottom pb-2">Weekly Charts</h2>
+        {% if weekly_charts %}
+            <div class="chart-grid">
+                {% for chart in weekly_charts %}
+                    <div class="chart-card">
+                        <h5>{{ chart.replace('_', ' ').rsplit('.', 1)[0] | title }}</h5>
+                        <img src="{{ url_for('external_chart', filename='weekly/' ~ chart) }}"
+                             alt="Weekly chart showing {{ chart.replace('_', ' ') | lower }}"
+                             class="chart-img">
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">No weekly charts available yet.</p>
+        {% endif %}
+    </section>
+
+    <!-- Weekly Comparison Charts Section -->
+    <section>
+        <h2 class="mb-3 border-bottom pb-2">Weekly Comparison Charts</h2>
+        {% if comparison_charts %}
+            <div class="chart-grid">
+                {% for chart in comparison_charts %}
+                    <div class="chart-card">
+                        <h5>{{ chart.replace('_', ' ').rsplit('.', 1)[0] | title }}</h5>
+                        <img src="{{ url_for('external_chart', filename='weekly_comparison/' ~ chart) }}"
+                             alt="Comparison chart showing {{ chart.replace('_', ' ') | lower }}"
+                             class="chart-img">
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">No comparison charts available yet.</p>
+        {% endif %}
+    </section>
+</div>
+
+<style>
+    .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 1.5rem;
+    }
+    .chart-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+        text-align: center;
+    }
+    .chart-card h5 {
+        margin-bottom: 0.5rem;
+        color: #333;
+        font-weight: 600;
+    }
+    .chart-img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+    .text-muted {
+        color: #777;
+    }
+</style>
+{% endblock %}
