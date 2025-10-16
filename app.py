@@ -44,7 +44,16 @@ app = Flask(__name__, template_folder="templates", static_folder="static")
 # =============================
 # Your CSVs remain in Downloads. Adjust if your username/path changes.
 DATA_SRC_DIR = Path(os.getenv("CCD_DATA_DIR", r"C:\Users\Callum\Downloads")).resolve()
-CHARTS_SRC_DIR = Path(os.getenv("CCD_CHARTS_DIR", r"C:\Users\Callum\Downloads\daily_charts")).resolve()
+# Chart folders (for Render and GitHub deployment)
+CHARTS_BASE_DIR = Path("data/charts").resolve()
+CHARTS_DAILY_DIR = CHARTS_BASE_DIR / "daily"
+CHARTS_WEEKLY_DIR = CHARTS_BASE_DIR / "weekly"
+CHARTS_COMPARISON_DIR = CHARTS_BASE_DIR / "weekly_comparison"
+
+# Ensure folders exist (prevents Flask from breaking if missing)
+for path in [CHARTS_DAILY_DIR, CHARTS_WEEKLY_DIR, CHARTS_COMPARISON_DIR]:
+    path.mkdir(parents=True, exist_ok=True)
+
 
 # The PDFs can live inside the project (safe to move)
 BASE_DIR = Path(__file__).resolve().parent
@@ -100,13 +109,6 @@ def latest_events(n=10):
         df = df.iloc[::-1]  # reverse if no timestamp column
     return df.head(n).to_dict(orient="records")
 
-def latest_chart_filename(pattern_key: str):
-    """Return the filename (not full path) of the newest chart matching the pattern key."""
-    pattern = CHART_PATTERNS.get(pattern_key)
-    if not pattern:
-        return None
-    files = sorted(CHARTS_SRC_DIR.glob(pattern), key=lambda p: p.stat().st_mtime if p.exists() else 0, reverse=True)
-    return files[0].name if files else None
 
 # ---------- Routes ----------
 @app.route("/")
@@ -149,16 +151,6 @@ def index():
 
     return render_template("index.html", cards=cards, events=events, charts=charts)
 
-@app.route("/charts/<path:filename>")
-def external_chart(filename):
-    # Serve chart images from the external charts directory in Downloads
-    target = (CHARTS_SRC_DIR / filename).resolve()
-    if not target.exists() or not target.is_file():
-        abort(404)
-    # basic path safety
-    if CHARTS_SRC_DIR not in target.parents:
-        abort(403)
-    return send_from_directory(CHARTS_SRC_DIR, filename)
 
 @app.route("/reports")
 def reports_home():
@@ -207,6 +199,27 @@ def download_report(filename):
         abort(403)
 
     return send_from_directory(reports_dir, filename, as_attachment=True)
+@app.route("/charts")
+def charts_page():
+    """Display daily, weekly, and comparison charts on the dashboard."""
+
+    def get_charts_from(folder: Path):
+        charts = sorted(
+            [f.name for f in folder.glob("*.png")],
+            reverse=True
+        )
+        return charts
+
+    daily_charts = get_charts_from(CHARTS_DAILY_DIR)
+    weekly_charts = get_charts_from(CHARTS_WEEKLY_DIR)
+    comparison_charts = get_charts_from(CHARTS_COMPARISON_DIR)
+
+    return render_template(
+        "charts.html",
+        daily_charts=daily_charts,
+        weekly_charts=weekly_charts,
+        comparison_charts=comparison_charts
+    )
 
 if __name__ == "__main__":
     import os
