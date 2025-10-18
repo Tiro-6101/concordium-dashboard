@@ -138,3 +138,47 @@ timestamp_utc,event_type,severity,metric,value,change_value,baseline,note
 2025-10-15T21:42:15.582158+00:00,volume_anomaly,moderate,volume_total,2147.5969543148303,2.6934309972073973,1323.530542076748,Volume 2.69σ from mean
 2025-10-16T09:17:28.657952+00:00,buyer_surge,high,consolidated_buyers_pct_notional,84.03,36.160000000000004,47.87,Sudden buyer dominance surge
 2025-10-16T09:17:28.657952+00:00,price_surge,moderate,price_usd,0.01601024,5.340298014486855,0.01519859,Price changed 5.34%
+2025-10-16T10:06:55.758639+00:00,volume_anomaly,moderate,volume_total,2219.79417865274,2.53424885865486,1647.7904112850479,Volume 2.53σ from mean
+2025-10-16T10:13:06.128023+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,75.64,20.9,54.74,Sudden seller dominance surge
+2025-10-16T10:13:06.128023+00:00,volume_anomaly,moderate,volume_total,4111.362783825741,2.6577907086093586,1999.539633464027,Volume 2.66σ from mean
+2025-10-16T10:41:55.776315+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,87.16,22.169999999999987,64.99000000000001,Sudden seller dominance surge
+2025-10-16T11:21:03.875419+00:00,seller_surge,high,consolidated_sellers_pct_notional,87.35,34.23,53.12,Sudden seller dominance surge
+2025-10-16T11:21:03.875419+00:00,volume_anomaly,moderate,volume_total,13107.15421018271,2.7680981059363936,4023.401218124635,Volume 2.77σ from mean
+2025-10-16T11:51:54.490633+00:00,seller_surge,high,consolidated_sellers_pct_notional,84.36,36.3,48.06,Sudden seller dominance surge
+2025-10-16T11:51:54.490633+00:00,volume_anomaly,moderate,volume_total,6270.2107753091,2.8459539007768657,1975.6849495561892,Volume 2.85σ from mean
+2025-10-16T12:26:52.154529+00:00,volume_anomaly,moderate,volume_total,3818.084516770011,2.6182408837186895,3004.3490348050605,Volume 2.62σ from mean
+2025-10-16T12:47:27.418869+00:00,seller_surge,high,consolidated_sellers_pct_notional,82.7,39.53,43.17,Sudden seller dominance surge
+2025-10-16T12:47:27.418869+00:00,volume_anomaly,moderate,volume_total,8379.848052522833,2.616526692736428,3349.1768122343055,Volume 2.62σ from mean
+2025-10-16T13:18:18.340229+00:00,volume_anomaly,moderate,volume_total,15599.20495383321,2.5106559846473067,4796.869505614926,Volume 2.51σ from mean
+2025-10-16T13:57:21.400467+00:00,seller_surge,high,consolidated_sellers_pct_notional,72.5,36.39,36.11,Sudden seller dominance surge
+2025-10-16T14:28:11.741489+00:00,volume_anomaly,moderate,volume_total,30474.009604352912,2.6133978861795146,7366.866667088863,Volume 2.61σ from mean
+2025-10-16T15:05:12.218023+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,80.7,23.400000000000006,57.3,Sudden seller dominance surge
+2025-10-16T15:05:12.218023+00:00,volume_anomaly,moderate,volume_total,43873.17651943301,2.5730604256418133,13941.043916706118,Volume 2.57σ from mean
+2025-10-16T16:33:41.551022+00:00,seller_surge,high,consolidated_sellers_pct_notional,80.71000000000001,32.95000000000001,47.76,Sudden seller dominance surge
+2025-10-16T16:54:17.101641+00:00,volume_anomaly,moderate,volume_total,13353.34312377943,2.736654132570713,5369.312906522651,Volume 2.74σ from mean
+2025-10-16T17:35:26.950851+00:00,volume_anomaly,moderate,volume_total,14499.371644550118,2.7731206194096276,12241.673611199047,Volume 2.77σ from mean
+2025-10-16T17:45:46.037929+00:00,volume_anomaly,moderate,volume_total,3811.1189578068997,2.6450176944378376,12402.283464594993,Volume 2.65σ from mean
+2025-10-16T17:49:52.599902+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,73.57,25.959999999999994,47.61,Sudden seller dominance surge
+2025-10-16T18:18:38.130925+00:00,buyer_surge,moderate,consolidated_buyers_pct_notional,80.5,24.520000000000003,55.98,Sudden buyer dominance surge
+2025-10-16T19:34:40.672263+00:00,volume_anomaly,moderate,volume_total,1984.4605653044296,2.548824129040833,2691.1557442142084,Volume 2.55σ from mean
+2025-10-16T19:47:00.300352+00:00,volume_anomaly,moderate,volume_total,16844.52185596605,2.8207706748933608,3839.050224275207,Volume 2.82σ from mean
+2025-10-16T20:34:20.769276+00:00,volume_anomaly,moderate,volume_total,10167.74495511184,2.790068976651937,3536.501271921849,Volume 2.79σ from mean
+2025-10-16T21:17:34.760864+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,93.34,23.010000000000005,70.33,Sudden seller dominance surge
+2025-10-16T21:23:44.425985+00:00,volume_anomaly,moderate,volume_total,28370.09431068487,2.561829842447217,10536.721794298577,Volume 2.56σ from mean
+2025-10-16T21:38:09.156144+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,71.76,22.10000000000001,49.66,Sudden seller dominance surge
+2025-10-17T08:58:46.645385+00:00,price_surge,mild,price_usd,0.01912983,4.456960947055744,0.0183136,Price changed 4.46%
+2025-10-17T09:58:26.800321+00:00,volume_anomaly,moderate,volume_total,25775.28408711846,2.736397043459655,8500.39066279629,Volume 2.74σ from mean
+2025-10-17T11:10:23.239122+00:00,buyer_surge,moderate,consolidated_buyers_pct_notional,89.78,21.5,68.28,Sudden buyer dominance surge
+2025-10-17T11:10:23.239122+00:00,volume_anomaly,moderate,volume_total,14126.583623505121,2.754000908449419,4987.443768156583,Volume 2.75σ from mean
+2025-10-17T11:20:39.587907+00:00,seller_surge,high,consolidated_sellers_pct_notional,93.01,35.2,57.81,Sudden seller dominance surge
+2025-10-17T11:43:15.347839+00:00,seller_surge,high,consolidated_sellers_pct_notional,74.15,35.71000000000001,38.44,Sudden seller dominance surge
+2025-10-17T12:09:57.547778+00:00,buyer_surge,high,consolidated_buyers_pct_notional,80.33,48.48,31.85,Sudden buyer dominance surge
+2025-10-17T12:46:55.882470+00:00,seller_surge,high,consolidated_sellers_pct_notional,73.06,31.85,41.21,Sudden seller dominance surge
+2025-10-17T12:55:08.864100+00:00,buyer_surge,high,consolidated_buyers_pct_notional,73.3,34.519999999999996,38.78,Sudden buyer dominance surge
+2025-10-17T13:05:25.346594+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,70.61,29.939999999999998,40.67,Sudden seller dominance surge
+2025-10-17T14:09:07.588347+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,82.34,21.740000000000002,60.6,Sudden seller dominance surge
+2025-10-17T14:42:09.007479+00:00,seller_surge,moderate,consolidated_sellers_pct_notional,85.39,21.480000000000004,63.91,Sudden seller dominance surge
+2025-10-17T15:17:13.955539+00:00,buyer_surge,high,consolidated_buyers_pct_notional,76.2,30.950000000000003,45.25,Sudden buyer dominance surge
+2025-10-17T15:56:22.184549+00:00,volume_anomaly,moderate,volume_total,8002.775686280211,2.567133248377652,3962.9325625255888,Volume 2.57σ from mean
+2025-10-17T15:58:25.456249+00:00,volume_anomaly,moderate,volume_total,17021.848602339927,2.662330378983991,5225.182208408968,Volume 2.66σ from mean
+2025-10-18T08:40:06.169915+00:00,price_surge,moderate,price_usd,0.01925395,7.202293491399692,0.01796039,Price changed 7.20%
