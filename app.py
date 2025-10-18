@@ -190,6 +190,18 @@ def charts_page():
         weekly_charts=weekly_charts,
         comparison_charts=comparison_charts
     )
+@app.route("/charts_data/<path:filename>")
+def serve_chart_file(filename):
+    """Serve chart images from the data/charts folder."""
+    chart_path = Path("data/charts").resolve()
+    target = (chart_path / filename).resolve()
+
+    # Security: ensure file is actually inside data/charts
+    if chart_path not in target.parents or not target.exists():
+        abort(404)
+
+    return send_from_directory(chart_path, filename)
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
