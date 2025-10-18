@@ -11,8 +11,8 @@
     <div class="chart-grid">
       {% for chart in daily_charts %}
         <div class="chart-card">
-          <img src="{{ url_for('static', filename='../data/charts/daily/' + chart) }}" alt="Daily chart: {{ chart }}">
-          <p class="caption">{{ chart }}</p>
+          <img src="{{ url_for('serve_chart_file', filename='daily/' ~ chart) }}" alt="Daily chart showing {{ chart }}">
+          <p class="caption">{{ chart | replace('_', ' ') | replace('.png', '') }}</p>
         </div>
       {% endfor %}
     </div>
@@ -28,8 +28,8 @@
     <div class="chart-grid">
       {% for chart in weekly_charts %}
         <div class="chart-card">
-          <img src="{{ url_for('static', filename='../data/charts/weekly/' + chart) }}" alt="Weekly chart: {{ chart }}">
-          <p class="caption">{{ chart }}</p>
+          <img src="{{ url_for('serve_chart_file', filename='weekly/' ~ chart) }}" alt="Weekly chart showing {{ chart }}">
+          <p class="caption">{{ chart | replace('_', ' ') | replace('.png', '') }}</p>
         </div>
       {% endfor %}
     </div>
@@ -45,8 +45,8 @@
     <div class="chart-grid">
       {% for chart in comparison_charts %}
         <div class="chart-card">
-          <img src="{{ url_for('static', filename='../data/charts/weekly_comparison/' + chart) }}" alt="Comparison chart: {{ chart }}">
-          <p class="caption">{{ chart }}</p>
+          <img src="{{ url_for('serve_chart_file', filename='weekly_comparison/' ~ chart) }}" alt="Comparison chart showing {{ chart }}">
+          <p class="caption">{{ chart | replace('_', ' ') | replace('.png', '') }}</p>
         </div>
       {% endfor %}
     </div>
